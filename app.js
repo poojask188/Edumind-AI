@@ -135,7 +135,7 @@ function bind(){
  on("[data-task]",b=>b.onchange=()=>{st.tasks[+b.dataset.task]=b.checked;persist();render()});
  on("[data-save]",b=>b.onclick=()=>{const t=b.dataset.save;st.saved=st.saved.includes(t)?st.saved.filter(x=>x!==t):[...st.saved,t];persist();render()});
  on("[data-ask]",b=>b.onclick=()=>{st.page="tutor";persist();render();send("Explain "+b.dataset.ask+" and why it matters.")});
- on("[data-p]",b=>b.onclick=()=>{const p={"Explain a concept":"Explain a concept from Neural Networks in simple words.","Solve a doubt":"I have a doubt. Can you help me solve it?","Give practice questions":"Give me 3 practice questions on neural networks.","Explain with an example":"Explain backpropagation with a simple example."};send(p[b.dataset.p])});
+ on("[data-p]", b => b.onclick = () => {   const prompts = {     "Explain a concept": "Explain a concept from Neural Networks in simple words.",     "Solve a doubt": "I have a doubt. Can you help me solve it step by step.",     "Give practice questions": "Give me 3 practice questions on Neural Networks.",     "Explain with an example": "Explain backpropagation with a simple example."   };    const message = prompts[b.dataset.p];    if (!message || busy) return;    const input = $("#ci");   input.value = message;   const text = input.value;   input.value = "";    send(text); });
  if($("#ci")){$("#ci").onkeydown=e=>{if(e.key==="Enter"){const v=e.target.value;e.target.value="";send(v)}};$("#send").onclick=()=>{const i=$("#ci"),v=i.value;i.value="";send(v)};$("#clr").onclick=()=>{st.chat=[];persist();renderMsgs(false)}}
  if($("#reset"))$("#reset").onclick=()=>{if(confirm("Reset all progress and chat history?")){localStorage.removeItem("em_state");location.reload()}};
 }
