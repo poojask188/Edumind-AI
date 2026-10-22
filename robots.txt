@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://poojask188.github.io/Edumind-AI/sitemap.xml
